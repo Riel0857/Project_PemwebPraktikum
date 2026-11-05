@@ -1,0 +1,87 @@
+name: pedulikasih
+
+services:
+  app:
+    build:
+      context: ${APP_SOURCE:-/home/faiq/Project_PemwebPraktikum}
+      dockerfile: Dockerfile
+    image: pedulikasih-app:latest
+    container_name: pedulikasih_app
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8080}:80"
+    environment:
+      APP_ENV: ${APP_ENV:-local}
+      APP_DEBUG: ${APP_DEBUG:-true}
+      APP_URL: ${APP_URL:-http://localhost:8080}
+      APP_TIMEZONE: ${APP_TIMEZONE:-Asia/Jakarta}
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-pedulikasih}
+      DB_USER: ${DB_USER:-peduli}
+      DB_PASSWORD: ${DB_PASSWORD:?isi DB_PASSWORD di file .env}
+      TZ: ${APP_TIMEZONE:-Asia/Jakarta}
+    volumes:
+      - ${APP_SOURCE:-/home/faiq/Project_PemwebPraktikum}:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - php -r 'if (@fsockopen("127.0.0.1", 80)) { exit(0); } exit(1);'
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  db:
+    image: postgres:16-alpine
+    container_name: pedulikasih_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-pedulikasih}
+      POSTGRES_USER: ${DB_USER:-peduli}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?isi DB_PASSWORD di file .env}
+      TZ: ${APP_TIMEZONE:-Asia/Jakarta}
+    ports:
+      - "${DB_PORT_HOST:-5433}:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ${APP_SOURCE:-/home/faiq/Project_PemwebPraktikum}/database:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-peduli} -d ${DB_NAME:-pedulikasih}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pedulikasih_pgadmin
+    restart: unless-stopped
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@pedulikasih.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:?isi PGADMIN_PASSWORD di file .env}
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+      TZ: ${APP_TIMEZONE:-Asia/Jakarta}
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+      - ${APP_SOURCE:-/home/faiq/Project_PemwebPraktikum}/deploy/dockge/pgadmin/servers.json:/pgadmin4/servers.json:ro
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:80/misc/ping || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  db_data:
+    name: pedulikasih_pgdata
+  pgadmin_data:
+    name: pedulikasih_pgadmin
