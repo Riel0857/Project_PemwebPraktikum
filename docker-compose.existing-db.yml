@@ -1,0 +1,33 @@
+name: pedulikasih
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pedulikasih_app
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8080}:80"
+    environment:
+      APP_ENV: ${APP_ENV:-local}
+      APP_DEBUG: ${APP_DEBUG:-true}
+      APP_URL: ${APP_URL:-http://localhost:8080}
+      APP_TIMEZONE: ${APP_TIMEZONE:-Asia/Jakarta}
+      DB_HOST: ${DB_HOST:-postgres_db}
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-mydb}
+      DB_USER: ${DB_USER:-admin}
+      DB_PASSWORD: ${DB_PASSWORD:-rahasia}
+      TZ: ${APP_TIMEZONE:-Asia/Jakarta}
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - default
+      - db_network
+
+networks:
+  default:
+  db_network:
+    external: true
+    name: ${DB_NETWORK:-postgresql_default}
