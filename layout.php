@@ -150,6 +150,9 @@ function tampil_admin_atas($judul, $aktif = 'dashboard')
             <a class="<?= $aktif === 'program' ? 'is-active' : '' ?>" href="/admin.php?halaman=program">
                 <span class="ico">▤</span> Program
             </a>
+            <a class="<?= $aktif === 'kategori' ? 'is-active' : '' ?>" href="/admin.php?halaman=kategori">
+                <span class="ico">▧</span> Kategori
+            </a>
             <a class="<?= $aktif === 'donasi' ? 'is-active' : '' ?>" href="/admin.php?halaman=donasi">
                 <span class="ico">✓</span> Verifikasi Donasi
                 <?php if ($jumlah_pending > 0): ?><span class="pill"><?= $jumlah_pending ?></span><?php endif; ?>

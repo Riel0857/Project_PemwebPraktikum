@@ -23,6 +23,7 @@ Panel admin:
 
 - Dashboard: total dana terverifikasi, donasi yang menunggu verifikasi, grafik 6 bulan
 - CRUD program (tambah, edit, hapus)
+- CRUD kategori program (tambah, edit, hapus; kategori yang masih dipakai program tidak bisa dihapus)
 - Verifikasi atau tolak donasi
 - Laporan per program dan per bulan, ekspor CSV
 - Kotak masuk pesan dari form kontak

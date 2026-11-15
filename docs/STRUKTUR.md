@@ -12,7 +12,7 @@ Project_PemwebPraktikum/
 ├── bayar.php          halaman payment gateway simulasi + status donasi
 ├── cek.php            cek status donasi berdasarkan kode
 ├── login.php          login admin, sekaligus proses logout
-├── admin.php          panel admin: dashboard, program, donasi, laporan, pesan
+├── admin.php          panel admin: dashboard, program, kategori, donasi, laporan, pesan
 ├── koneksi.php        koneksi PDO + fungsi bantu (e, rupiah, tanggal, csrf, dll)
 ├── layout.php         header, navigasi, footer, dan layout panel admin
 ├── assets/
@@ -83,11 +83,13 @@ Parameter `?keluar=1` dipakai untuk logout.
 | (kosong) | dashboard: ringkasan angka, grafik 6 bulan, donasi yang perlu diverifikasi |
 | `program` | tabel program + pencarian, tombol edit dan hapus |
 | `program_form` | form tambah/edit program |
+| `kategori` | daftar kategori + form tambah/edit di sampingnya, tombol hapus |
 | `donasi` | tabel donasi + filter status + aksi verifikasi/tolak |
 | `laporan` | rekap per program dan per bulan |
 | `export` | unduh CSV donasi terverifikasi |
 | `pesan` | pesan dari form kontak |
 
-Semua aksi POST (simpan program, hapus program, verifikasi, tolak, tandai pesan
-dibaca) ditangani di bagian atas file yang sama, lalu redirect kembali ke halamannya.
+Semua aksi POST (simpan kategori, hapus kategori, simpan program, hapus program,
+verifikasi, tolak, tandai pesan dibaca) ditangani di bagian atas file yang sama,
+lalu redirect kembali ke halamannya.
 Pola ini yang paling gampang dijelaskan: "prosesnya di atas, tampilannya di bawah".

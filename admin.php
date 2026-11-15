@@ -86,6 +86,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         redirect('admin.php?halaman=program');
     }
 
+    if ($aksi === 'simpan_kategori') {
+        $id = (int) ($_POST['id'] ?? 0);
+        $nama_kategori = trim($_POST['nama'] ?? '');
+        $deskripsi_kategori = trim($_POST['deskripsi'] ?? '');
+        $kembali = 'admin.php?halaman=kategori' . ($id > 0 ? '&edit=' . $id : '');
+
+        if ($nama_kategori === '') {
+            flash('gagal', 'Nama kategori wajib diisi.');
+            redirect($kembali);
+        }
+
+        $slug = trim(strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $nama_kategori)), '-');
+
+        $cek = $pdo->prepare('SELECT COUNT(*) FROM categories WHERE (name = ? OR slug = ?) AND id <> ?');
+        $cek->execute([$nama_kategori, $slug, $id]);
+
+        if ((int) $cek->fetchColumn() > 0) {
+            flash('gagal', 'Nama kategori itu sudah ada. Pakai nama lain.');
+            redirect($kembali);
+        }
+
+        if ($id > 0) {
+            $ubah = $pdo->prepare('UPDATE categories SET name = ?, slug = ?, description = ? WHERE id = ?');
+            $ubah->execute([$nama_kategori, $slug, $deskripsi_kategori, $id]);
+            flash('sukses', 'Kategori berhasil diperbarui.');
+        } else {
+            $tambah = $pdo->prepare('INSERT INTO categories (name, slug, description) VALUES (?, ?, ?)');
+            $tambah->execute([$nama_kategori, $slug, $deskripsi_kategori]);
+            flash('sukses', 'Kategori baru berhasil ditambahkan.');
+        }
+
+        redirect('admin.php?halaman=kategori');
+    }
+
+    if ($aksi === 'hapus_kategori') {
+        $id = (int) ($_POST['id'] ?? 0);
+
+        $cek = $pdo->prepare('SELECT COUNT(*) FROM programs WHERE category_id = ?');
+        $cek->execute([$id]);
+        $dipakai = (int) $cek->fetchColumn();
+
+        if ($dipakai > 0) {
+            flash('gagal', 'Kategori tidak bisa dihapus karena masih dipakai ' . $dipakai . ' program.');
+        } else {
+            $pdo->prepare('DELETE FROM categories WHERE id = ?')->execute([$id]);
+            flash('sukses', 'Kategori berhasil dihapus.');
+        }
+
+        redirect('admin.php?halaman=kategori');
+    }
+
     if ($aksi === 'verifikasi' || $aksi === 'tolak') {
         $id = (int) ($_POST['id'] ?? 0);
         $catatan = trim($_POST['catatan'] ?? '');
@@ -311,6 +362,123 @@ if ($halaman === 'program') {
             </table>
         </div>
     <?php endif; ?>
+</div>
+
+    <?php
+    tampil_admin_bawah();
+    exit;
+}
+
+if ($halaman === 'kategori') {
+    $edit_id = (int) ($_GET['edit'] ?? 0);
+    $kategori_edit = ['id' => 0, 'name' => '', 'description' => ''];
+
+    if ($edit_id > 0) {
+        $ambil = $pdo->prepare('SELECT id, name, description FROM categories WHERE id = ?');
+        $ambil->execute([$edit_id]);
+        $data = $ambil->fetch();
+
+        if (!$data) {
+            flash('gagal', 'Kategori tidak ditemukan.');
+            redirect('admin.php?halaman=kategori');
+        }
+
+        $kategori_edit = $data;
+    }
+
+    $daftar = $pdo->query("
+        SELECT c.id, c.name, c.slug, c.description, COUNT(p.id) AS jumlah_program
+        FROM categories c
+        LEFT JOIN programs p ON p.category_id = c.id
+        GROUP BY c.id, c.name, c.slug, c.description
+        ORDER BY c.name
+    ")->fetchAll();
+
+    $judul = 'Kelola Kategori';
+    tampil_admin_atas($judul, 'kategori');
+    ?>
+
+<div class="page-head">
+    <div class="page-head__inner">
+        <div>
+            <h2>Kategori program</h2>
+            <p class="muted"><?= e(count($daftar)) ?> kategori terdaftar. Kategori dipakai saat menambah program.</p>
+        </div>
+    </div>
+</div>
+
+<div class="admin-columns">
+    <div class="card">
+        <div class="card__head"><h3>Daftar kategori</h3></div>
+        <?php if ($daftar === []): ?>
+            <div class="card__body"><p class="muted" style="margin: 0;">Belum ada kategori. Tambahkan lewat form di samping.</p></div>
+        <?php else: ?>
+            <div class="table-wrap">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Kategori</th>
+                            <th>Deskripsi</th>
+                            <th class="ta-right">Program</th>
+                            <th class="ta-right">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($daftar as $k): ?>
+                            <tr>
+                                <td>
+                                    <span class="strong"><?= e($k['name']) ?></span>
+                                    <span class="sub"><?= e($k['slug']) ?></span>
+                                </td>
+                                <td><?= e($k['description'] ?: '-') ?></td>
+                                <td class="ta-right nowrap"><?= e($k['jumlah_program']) ?></td>
+                                <td class="ta-right nowrap">
+                                    <a class="btn btn--outline btn--sm" href="admin.php?halaman=kategori&edit=<?= e($k['id']) ?>">Edit</a>
+                                    <form method="post" action="admin.php?halaman=kategori" style="display: inline;"
+                                          data-confirm="Hapus kategori <?= e($k['name']) ?>?">
+                                        <?= csrf_input() ?>
+                                        <input type="hidden" name="aksi" value="hapus_kategori">
+                                        <input type="hidden" name="id" value="<?= e($k['id']) ?>">
+                                        <button class="btn btn--danger btn--sm" type="submit">Hapus</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php endif; ?>
+    </div>
+
+    <div class="card">
+        <div class="card__head"><h3><?= $edit_id > 0 ? 'Edit kategori' : 'Tambah kategori' ?></h3></div>
+        <div class="card__body">
+            <form class="admin-form" method="post" action="admin.php?halaman=kategori">
+                <?= csrf_input() ?>
+                <input type="hidden" name="aksi" value="simpan_kategori">
+                <input type="hidden" name="id" value="<?= e($kategori_edit['id']) ?>">
+
+                <div class="field">
+                    <label for="nama">Nama kategori</label>
+                    <input class="input" type="text" id="nama" name="nama" maxlength="80"
+                           value="<?= e($kategori_edit['name']) ?>" required>
+                    <p class="hint">Slug dibuat otomatis dari nama.</p>
+                </div>
+
+                <div class="field">
+                    <label for="deskripsi">Deskripsi</label>
+                    <textarea class="textarea" id="deskripsi" name="deskripsi" rows="3"><?= e($kategori_edit['description']) ?></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn btn--primary" type="submit"><?= $edit_id > 0 ? 'Simpan Perubahan' : 'Tambah Kategori' ?></button>
+                    <?php if ($edit_id > 0): ?>
+                        <a class="btn btn--outline" href="admin.php?halaman=kategori">Batal</a>
+                    <?php endif; ?>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
     <?php
