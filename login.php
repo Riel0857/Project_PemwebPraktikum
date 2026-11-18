@@ -49,14 +49,13 @@ tampil_atas($judul, '');
 <div class="auth-wrap">
     <div class="auth-card">
         <div class="auth-card__head">
-            <span class="eyebrow">Panel admin</span>
             <h1>Masuk ke PeduliKasih</h1>
             <p class="small muted">Halaman ini hanya untuk pengurus yayasan.</p>
         </div>
 
         <?php if ($error !== ''): ?>
             <div class="alert alert--danger" role="alert">
-                <span class="alert__icon">!</span>
+                <span class="alert__icon" aria-hidden="true">!</span>
                 <p><?= e($error) ?></p>
             </div>
         <?php endif; ?>
@@ -72,7 +71,7 @@ tampil_atas($judul, '');
 
             <div class="field">
                 <label for="password">Password</label>
-                <input class="input" type="password" id="password" name="password" placeholder="••••••••" required>
+                <input class="input" type="password" id="password" name="password" required>
             </div>
 
             <button class="btn btn--primary btn--block" type="submit">Masuk</button>

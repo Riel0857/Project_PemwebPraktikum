@@ -66,9 +66,9 @@ if (isset($_GET['id'])) {
                 <h1 class="detail-title"><?= e($program['title']) ?></h1>
 
                 <div class="detail-meta">
-                    <span>◉ <?= e($program['location'] ?: 'Lokasi menyusul') ?></span>
-                    <span>◷ <?= $sisa_hari !== null && $sisa_hari > 0 ? $sisa_hari . ' hari lagi' : 'Tenggat ' . e(tanggal($program['deadline'])) ?></span>
-                    <span>♥ <?= e($program['donation_count']) ?> donasi terverifikasi</span>
+                    <span><?= e($program['location'] ?: 'Lokasi menyusul') ?></span>
+                    <span><?= $sisa_hari !== null && $sisa_hari > 0 ? $sisa_hari . ' hari lagi' : 'Tenggat ' . e(tanggal($program['deadline'])) ?></span>
+                    <span><?= e($program['donation_count']) ?> donasi terverifikasi</span>
                 </div>
 
                 <div class="detail-body">
@@ -203,7 +203,6 @@ tampil_atas($judul, 'program');
         <div class="page-head">
             <div class="page-head__inner">
                 <div>
-                    <span class="eyebrow">Program aktif</span>
                     <h1>Pilih program yang ingin Anda bantu</h1>
                     <p class="muted"><?= e($total) ?> program ditemukan<?= $slug_kategori !== '' ? ' pada kategori ' . e($slug_kategori) : '' ?>.</p>
                 </div>

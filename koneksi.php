@@ -196,13 +196,4 @@ function redirect($tujuan)
     exit;
 }
 
-function potong($teks, $panjang = 120)
-{
-    $teks = trim((string) $teks);
 
-    if (strlen($teks) <= $panjang) {
-        return $teks;
-    }
-
-    return substr($teks, 0, $panjang) . '...';
-}

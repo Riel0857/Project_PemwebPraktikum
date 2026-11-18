@@ -17,7 +17,7 @@ Project_PemwebPraktikum/
 ├── layout.php         header, navigasi, footer, dan layout panel admin
 ├── assets/
 │   ├── css/style.css  seluruh tampilan
-│   └── js/script.js   salin teks, konfirmasi hapus, timer pembayaran
+│   └── js/script.js   salin teks, isi nominal cepat, konfirmasi hapus
 ├── database/
 │   ├── 01_schema.sql  tabel, view, trigger
 │   └── 02_seed.sql    data contoh
@@ -25,7 +25,8 @@ Project_PemwebPraktikum/
 ├── deploy/dockge/     compose untuk Dockge + server pgAdmin
 ├── docs/              dokumentasi
 ├── Dockerfile
-├── docker-compose.yml
+├── docker-compose.yml               stack lengkap: app + db + pgAdmin
+├── docker-compose.existing-db.yml   varian tanpa db, memakai Postgres yang sudah ada
 └── .env.example
 ```
 

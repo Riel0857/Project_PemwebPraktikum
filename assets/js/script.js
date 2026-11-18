@@ -50,23 +50,4 @@
             if (toggle) toggle.checked = false;
         });
     });
-
-    var timer = document.getElementById('gw-timer');
-
-    if (timer) {
-        var sisa = parseInt(timer.getAttribute('data-seconds'), 10) || 900;
-
-        setInterval(function () {
-            sisa = Math.max(0, sisa - 1);
-
-            var menit = Math.floor(sisa / 60);
-            var detik = sisa % 60;
-
-            timer.textContent = String(menit).padStart(2, '0') + ':' + String(detik).padStart(2, '0');
-
-            if (sisa === 0) {
-                timer.textContent = 'Waktu habis';
-            }
-        }, 1000);
-    }
 })();

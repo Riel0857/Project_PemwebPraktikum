@@ -8,7 +8,7 @@ function tampil_atas($judul, $aktif = '')
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= e($judul) ?> — PeduliKasih</title>
+    <title><?= e($judul) ?> · PeduliKasih</title>
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
@@ -28,12 +28,13 @@ function tampil_atas($judul, $aktif = '')
             </span>
         </a>
 
-        <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
-        <label for="nav-toggle" class="nav-burger" aria-label="Buka menu">
+        <input type="checkbox" id="nav-toggle" class="nav-toggle"
+               aria-label="Buka menu navigasi" aria-controls="nav-utama">
+        <label for="nav-toggle" class="nav-burger">
             <span></span><span></span><span></span>
         </label>
 
-        <nav class="site-nav" aria-label="Navigasi utama">
+        <nav class="site-nav" id="nav-utama" aria-label="Navigasi utama">
             <a class="<?= $aktif === 'beranda' ? 'is-active' : '' ?>" href="/index.php">Beranda</a>
             <a class="<?= $aktif === 'program' ? 'is-active' : '' ?>" href="/program.php">Program</a>
             <a class="<?= $aktif === 'cek' ? 'is-active' : '' ?>" href="/cek.php">Cek Donasi</a>
@@ -71,7 +72,7 @@ function tampil_bawah()
             </p>
         </div>
         <div>
-            <h4>Program</h4>
+            <h3>Program</h3>
             <ul class="footer-links">
                 <li><a href="/program.php?kategori=pendidikan">Pendidikan</a></li>
                 <li><a href="/program.php?kategori=kesehatan">Kesehatan</a></li>
@@ -80,7 +81,7 @@ function tampil_bawah()
             </ul>
         </div>
         <div>
-            <h4>Informasi</h4>
+            <h3>Informasi</h3>
             <ul class="footer-links">
                 <li><a href="/index.php#tentang">Tentang Kami</a></li>
                 <li><a href="/cek.php">Cek Status Donasi</a></li>
@@ -89,7 +90,7 @@ function tampil_bawah()
             </ul>
         </div>
         <div>
-            <h4>Kontak</h4>
+            <h3>Kontak</h3>
             <ul class="footer-links footer-links--plain">
                 <li>Jl. Cendana No. 12, Bandung</li>
                 <li>halo@pedulikasih.test</li>
@@ -121,16 +122,17 @@ function tampil_admin_atas($judul, $aktif = 'dashboard')
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= e($judul) ?> — Admin PeduliKasih</title>
+    <title><?= e($judul) ?> · Admin PeduliKasih</title>
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body class="admin-body">
 <a class="skip-link" href="#konten">Lewati ke konten</a>
 
-<input type="checkbox" id="sidebar-toggle" class="nav-toggle" hidden>
+<input type="checkbox" id="sidebar-toggle" class="nav-toggle"
+       aria-label="Buka menu admin" aria-controls="sidebar-admin">
 
 <div class="admin-shell">
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar-admin">
         <a class="brand brand--sidebar" href="/admin.php">
             <span class="brand__mark" aria-hidden="true">
                 <svg viewBox="0 0 32 32" width="20" height="20" fill="currentColor">
@@ -143,34 +145,34 @@ function tampil_admin_atas($judul, $aktif = 'dashboard')
         <nav class="sidebar-nav" aria-label="Navigasi admin">
             <span class="sidebar-label">Ringkasan</span>
             <a class="<?= $aktif === 'dashboard' ? 'is-active' : '' ?>" href="/admin.php">
-                <span class="ico">▦</span> Dashboard
+                <span class="ico" aria-hidden="true">▦</span> Dashboard
             </a>
 
             <span class="sidebar-label">Pengelolaan</span>
             <a class="<?= $aktif === 'program' ? 'is-active' : '' ?>" href="/admin.php?halaman=program">
-                <span class="ico">▤</span> Program
+                <span class="ico" aria-hidden="true">▤</span> Program
             </a>
             <a class="<?= $aktif === 'kategori' ? 'is-active' : '' ?>" href="/admin.php?halaman=kategori">
-                <span class="ico">▧</span> Kategori
+                <span class="ico" aria-hidden="true">▧</span> Kategori
             </a>
             <a class="<?= $aktif === 'donasi' ? 'is-active' : '' ?>" href="/admin.php?halaman=donasi">
-                <span class="ico">✓</span> Verifikasi Donasi
+                <span class="ico" aria-hidden="true">✓</span> Verifikasi Donasi
                 <?php if ($jumlah_pending > 0): ?><span class="pill"><?= $jumlah_pending ?></span><?php endif; ?>
             </a>
             <a class="<?= $aktif === 'pesan' ? 'is-active' : '' ?>" href="/admin.php?halaman=pesan">
-                <span class="ico">✉</span> Pesan
+                <span class="ico" aria-hidden="true">✉</span> Pesan
                 <?php if ($jumlah_pesan > 0): ?><span class="pill"><?= $jumlah_pesan ?></span><?php endif; ?>
             </a>
             <a class="<?= $aktif === 'laporan' ? 'is-active' : '' ?>" href="/admin.php?halaman=laporan">
-                <span class="ico">▥</span> Laporan
+                <span class="ico" aria-hidden="true">▥</span> Laporan
             </a>
 
             <span class="sidebar-label">Lainnya</span>
-            <a href="/index.php" target="_blank" rel="noopener"><span class="ico">↗</span> Lihat Situs</a>
+            <a href="/index.php" target="_blank" rel="noopener"><span class="ico" aria-hidden="true">↗</span> Lihat Situs</a>
         </nav>
 
         <div class="sidebar-user">
-            <div class="avatar"><?= e(strtoupper(substr($admin, 0, 1))) ?></div>
+            <div class="avatar" aria-hidden="true"><?= e(strtoupper(substr($admin, 0, 1))) ?></div>
             <div class="sidebar-user__meta">
                 <strong><?= e($admin) ?></strong>
                 <small><?= e($_SESSION['admin_email'] ?? '') ?></small>
@@ -180,7 +182,7 @@ function tampil_admin_atas($judul, $aktif = 'dashboard')
 
     <div class="admin-main">
         <header class="admin-topbar">
-            <label for="sidebar-toggle" class="nav-burger nav-burger--dark" aria-label="Buka menu">
+            <label for="sidebar-toggle" class="nav-burger nav-burger--dark">
                 <span></span><span></span><span></span>
             </label>
             <div class="admin-topbar__title">

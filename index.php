@@ -80,7 +80,6 @@ tampil_atas($judul, 'beranda');
 <section class="hero">
     <div class="container hero__grid">
         <div>
-            <span class="eyebrow">Lembaga amal terverifikasi</span>
             <h1>Kebaikan kecil,<br><em>dampak yang nyata.</em></h1>
             <p class="hero__lead">
                 PeduliKasih menghubungkan donatur dengan program pendidikan, kesehatan,
@@ -92,17 +91,17 @@ tampil_atas($judul, 'beranda');
                 <a class="btn btn--outline" href="cek.php">Cek Status Donasi</a>
             </div>
             <div class="hero__trust">
-                <span>Laporan transparan</span>
-                <span>Donasi terverifikasi</span>
-                <span>Relawan terlatih</span>
+                <span>Setiap donasi dapat kode unik</span>
+                <span>Diverifikasi admin sebelum dihitung</span>
+                <span>Laporan per program terbuka</span>
             </div>
         </div>
 
         <aside class="impact-card">
-            <span class="impact-card__label">Total dana tersalurkan</span>
+            <span class="impact-card__label">Total donasi terverifikasi</span>
             <div class="impact-card__value"><?= e(rupiah($ringkasan['total'])) ?></div>
             <div class="impact-card__sub">
-                dari <?= e(number_format($jumlah_donatur, 0, ',', '.')) ?> donatur di seluruh Indonesia
+                dari <?= e(number_format($jumlah_donatur, 0, ',', '.')) ?> donatur terdaftar
             </div>
 
             <div class="impact-list">
@@ -131,7 +130,7 @@ tampil_atas($judul, 'beranda');
         <div class="stats">
             <div class="stat">
                 <div class="stat__value"><?= e(rupiah($ringkasan['total'])) ?></div>
-                <div class="stat__label">Dana tersalurkan</div>
+                <div class="stat__label">Dana terverifikasi</div>
             </div>
             <div class="stat">
                 <div class="stat__value"><?= e(number_format($jumlah_donatur, 0, ',', '.')) ?></div>
@@ -158,6 +157,14 @@ tampil_atas($judul, 'beranda');
             </div>
             <a class="link-arrow" href="program.php">Semua program</a>
         </div>
+
+        <?php if ($program === []): ?>
+            <div class="empty">
+                <h3>Belum ada program yang ditayangkan</h3>
+                <p>Program baru muncul di sini setelah ditambahkan lewat panel admin dan berstatus aktif.</p>
+                <a class="btn btn--primary" href="/login.php">Masuk panel admin</a>
+            </div>
+        <?php endif; ?>
 
         <div class="program-grid">
             <?php foreach ($program as $p): ?>
@@ -228,22 +235,26 @@ tampil_atas($judul, 'beranda');
         <div class="section-head">
             <div class="section-head__text">
                 <h2>Bagaimana donasi Anda bekerja</h2>
-                <p>Tiga langkah sederhana, dari niat baik sampai laporan penggunaan dana.</p>
+                <p>Empat tahap yang sama dengan urutan status di halaman cek donasi.</p>
             </div>
         </div>
 
         <div class="steps">
             <article class="step">
-                <h3>Pilih program</h3>
-                <p>Telusuri program yang sedang berjalan, baca latar belakang, target dana, dan tenggatnya.</p>
+                <h3>Donasi dicatat</h3>
+                <p>Pilih program, isi formulir, dan simpan kode donasi yang muncul setelahnya.</p>
             </article>
             <article class="step">
-                <h3>Donasi &amp; bayar</h3>
-                <p>Isi formulir donasi, bayar lewat halaman pembayaran simulasi, lalu simpan kode donasi Anda.</p>
+                <h3>Pembayaran</h3>
+                <p>Bayar lewat halaman simulasi, lalu tandai sudah dibayar. Status berubah menjadi menunggu verifikasi.</p>
             </article>
             <article class="step">
-                <h3>Verifikasi &amp; laporan</h3>
-                <p>Tim kami memverifikasi pembayaran. Dana disalurkan dan laporannya dipublikasikan berkala.</p>
+                <h3>Diverifikasi admin</h3>
+                <p>Admin mencocokkan pembayaran. Setelah cocok, donasi masuk ke dana terkumpul program.</p>
+            </article>
+            <article class="step">
+                <h3>Disalurkan</h3>
+                <p>Dana disalurkan ke program dan rekapnya tampil di halaman laporan.</p>
             </article>
         </div>
     </div>
@@ -259,11 +270,19 @@ tampil_atas($judul, 'beranda');
             <a class="link-arrow" href="program.php">Ikut berkontribusi</a>
         </div>
 
+        <?php if ($donasi === []): ?>
+            <div class="empty">
+                <h3>Belum ada donasi terverifikasi</h3>
+                <p>Dinding ini terisi setelah admin memverifikasi pembayaran donatur pertama.</p>
+                <a class="btn btn--primary" href="/program.php">Lihat program</a>
+            </div>
+        <?php endif; ?>
+
         <div class="wall">
             <?php foreach ($donasi as $d): ?>
                 <article class="wall__item">
                     <div class="wall__top">
-                        <span class="wall__avatar"><?= e(strtoupper(substr($d['nama'], 0, 1))) ?></span>
+                        <span class="wall__avatar" aria-hidden="true"><?= e(strtoupper(substr($d['nama'], 0, 1))) ?></span>
                         <div>
                             <div class="wall__name"><?= e($d['nama']) ?></div>
                             <div class="wall__meta"><?= e($d['title']) ?></div>
@@ -271,7 +290,7 @@ tampil_atas($judul, 'beranda');
                         <div class="wall__amount"><?= e(rupiah($d['amount'])) ?></div>
                     </div>
                     <?php if (!empty($d['message'])): ?>
-                        <p class="wall__msg">“<?= e($d['message']) ?>”</p>
+                        <blockquote class="wall__msg"><?= e($d['message']) ?></blockquote>
                     <?php endif; ?>
                 </article>
             <?php endforeach; ?>
@@ -307,16 +326,28 @@ tampil_atas($judul, 'beranda');
                 </p>
             </div>
 
-            <aside class="info-card">
-                <div class="info-card__ico">◎</div>
-                <h3>Alamat sekretariat</h3>
-                <p class="small muted">Jl. Cendana No. 12, Bandung 40123</p>
-                <div class="info-card__ico">✆</div>
-                <h3>Telepon</h3>
-                <p class="small muted">(022) 555-0134 · Senin–Jumat 08.00–17.00 WIB</p>
-                <div class="info-card__ico">✉</div>
-                <h3>Email</h3>
-                <p class="small muted">halo@pedulikasih.test</p>
+            <aside class="info-card info-card--list">
+                <div class="info-card__row">
+                    <span class="info-card__ico" aria-hidden="true">◎</span>
+                    <div>
+                        <h3>Alamat sekretariat</h3>
+                        <p class="small muted">Jl. Cendana No. 12, Bandung 40123</p>
+                    </div>
+                </div>
+                <div class="info-card__row">
+                    <span class="info-card__ico" aria-hidden="true">✆</span>
+                    <div>
+                        <h3>Telepon</h3>
+                        <p class="small muted">(022) 555-0134 · Senin–Jumat 08.00–17.00 WIB</p>
+                    </div>
+                </div>
+                <div class="info-card__row">
+                    <span class="info-card__ico" aria-hidden="true">✉</span>
+                    <div>
+                        <h3>Email</h3>
+                        <p class="small muted">halo@pedulikasih.test</p>
+                    </div>
+                </div>
             </aside>
         </div>
     </div>
@@ -337,7 +368,7 @@ tampil_atas($judul, 'beranda');
 
                 <?php if (!empty($error['umum'])): ?>
                     <div class="alert alert--danger" role="alert" style="margin-bottom: 18px;">
-                        <span class="alert__icon">!</span>
+                        <span class="alert__icon" aria-hidden="true">!</span>
                         <p><?= e($error['umum']) ?></p>
                     </div>
                 <?php endif; ?>
@@ -382,18 +413,6 @@ tampil_atas($judul, 'beranda');
                     Untuk urusan donasi, sertakan kode donasi Anda agar lebih cepat ditelusuri.
                 </p>
             </aside>
-        </div>
-    </div>
-</section>
-
-<section class="section">
-    <div class="container">
-        <div class="cta">
-            <div>
-                <h2>Punya pertanyaan atau ingin menjadi relawan?</h2>
-                <p>Kami terbuka untuk kolaborasi dengan individu, komunitas, maupun perusahaan yang ingin berkontribusi.</p>
-            </div>
-            <a class="btn btn--accent" href="index.php#kontak">Hubungi Kami</a>
         </div>
     </div>
 </section>

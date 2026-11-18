@@ -103,3 +103,4 @@ bantu) dan `layout.php` (header, navigasi, footer). Detailnya ada di
 - [docs/ALUR-APLIKASI.md](docs/ALUR-APLIKASI.md) — alur donasi, verifikasi, login
 - [docs/DATABASE.md](docs/DATABASE.md) — tabel, relasi, view, aturan status
 - [docs/PANDUAN-INSTALASI.md](docs/PANDUAN-INSTALASI.md) — instalasi dan troubleshooting
+- [docs/DESIGN.md](docs/DESIGN.md) — arah tampilan: palet, tipografi, bentuk, aturan state

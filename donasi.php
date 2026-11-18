@@ -123,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$judul = 'Donasi — ' . $program['title'];
+$judul = 'Donasi · ' . $program['title'];
 tampil_atas($judul, 'program');
 $progres = persen($program['collected_amount'], $program['target_amount']);
 ?>
@@ -139,7 +139,7 @@ $progres = persen($program['collected_amount'], $program['target_amount']);
 
         <?php if ($error !== []): ?>
             <div class="alert alert--danger" role="alert" style="margin: 0 0 20px;">
-                <span class="alert__icon">!</span>
+                <span class="alert__icon" aria-hidden="true">!</span>
                 <div>
                     <p><strong>Donasi belum bisa diproses.</strong> Periksa kembali isian yang ditandai di bawah.</p>
                 </div>
@@ -151,7 +151,7 @@ $progres = persen($program['collected_amount'], $program['target_amount']);
                 <?= csrf_input() ?>
                 <input type="hidden" name="program_id" value="<?= e($program['id']) ?>">
 
-                <h2 style="margin-bottom: 4px;">Formulir donasi</h2>
+                <h1 style="margin-bottom: 4px; font-size: 1.35rem;">Formulir donasi</h1>
                 <p class="small muted" style="margin-bottom: 24px;">
                     Isi data dengan benar agar tim kami dapat memverifikasi donasi Anda.
                 </p>
@@ -202,8 +202,8 @@ $progres = persen($program['collected_amount'], $program['target_amount']);
                     </div>
                 </div>
 
-                <div class="field <?= isset($error['metode']) ? 'field--error' : '' ?>">
-                    <span class="field-label">Metode pembayaran</span>
+                <fieldset class="field <?= isset($error['metode']) ? 'field--error' : '' ?>">
+                    <legend class="field-label">Metode pembayaran</legend>
                     <div class="method-grid">
                         <?php
                         $metode = [
@@ -222,7 +222,7 @@ $progres = persen($program['collected_amount'], $program['target_amount']);
                         <?php endforeach; ?>
                     </div>
                     <?php if (isset($error['metode'])): ?><span class="error-text"><?= e($error['metode']) ?></span><?php endif; ?>
-                </div>
+                </fieldset>
 
                 <div class="form-section-title">Pesan &amp; preferensi</div>
 

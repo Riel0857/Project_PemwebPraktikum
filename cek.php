@@ -52,7 +52,7 @@ tampil_atas($judul, 'cek');
 
         <?php if ($kode !== '' && !$donasi): ?>
             <div class="empty">
-                <h3>Kode donasi tidak ditemukan</h3>
+                <h2>Kode donasi tidak ditemukan</h2>
                 <p>Periksa kembali penulisan kode. Jika masih bermasalah, hubungi kami dengan menyertakan bukti transfer.</p>
                 <a class="btn btn--outline btn--sm" href="index.php#kontak">Hubungi Admin</a>
             </div>
@@ -100,7 +100,7 @@ tampil_atas($judul, 'cek');
 
                     <?php if (!empty($donasi['admin_note'])): ?>
                         <div class="alert <?= $status === 'rejected' ? 'alert--danger' : 'alert--success' ?>" style="margin-top: 16px;">
-                            <span class="alert__icon">i</span>
+                            <span class="alert__icon" aria-hidden="true">i</span>
                             <p class="small"><strong>Catatan admin:</strong> <?= e($donasi['admin_note']) ?></p>
                         </div>
                     <?php endif; ?>
@@ -117,7 +117,7 @@ tampil_atas($judul, 'cek');
                             <div class="timeline__title">Pembayaran</div>
                             <div class="timeline__time">
                                 <?php if ($status === 'pending'): ?>
-                                    Belum dibayar —
+                                    Belum dibayar:
                                     <a href="bayar.php?kode=<?= e(urlencode($donasi['code'])) ?>">lanjutkan pembayaran</a>
                                 <?php else: ?>
                                     Dibayar pada <?= e(tanggal($donasi['paid_at'], true)) ?> WIB

@@ -190,7 +190,7 @@ if ($halaman === 'program_form') {
 <div class="page-head">
     <div class="page-head__inner">
         <div>
-            <h2><?= $id > 0 ? 'Edit program' : 'Program baru' ?></h2>
+            <h1><?= $id > 0 ? 'Edit program' : 'Program baru' ?></h1>
             <p class="muted">Isi data program dengan lengkap agar donatur memahami tujuannya.</p>
         </div>
         <a class="btn btn--outline btn--sm" href="admin.php?halaman=program">Kembali</a>
@@ -306,7 +306,7 @@ if ($halaman === 'program') {
 <div class="page-head">
     <div class="page-head__inner">
         <div>
-            <h2>Daftar program</h2>
+            <h1>Daftar program</h1>
             <p class="muted"><?= e(count($program)) ?> program terdaftar.</p>
         </div>
         <a class="btn btn--primary btn--sm" href="admin.php?halaman=program_form">+ Tambah Program</a>
@@ -401,7 +401,7 @@ if ($halaman === 'kategori') {
 <div class="page-head">
     <div class="page-head__inner">
         <div>
-            <h2>Kategori program</h2>
+            <h1>Kategori program</h1>
             <p class="muted"><?= e(count($daftar)) ?> kategori terdaftar. Kategori dipakai saat menambah program.</p>
         </div>
     </div>
@@ -541,6 +541,15 @@ if ($halaman === 'donasi') {
     $judul = 'Verifikasi Donasi';
     tampil_admin_atas($judul, 'donasi');
     ?>
+
+<div class="page-head">
+    <div class="page-head__inner">
+        <div>
+            <h1>Verifikasi donasi</h1>
+            <p class="muted">Transaksi terbaru di atas. Donasi berstatus sudah dibayar perlu dicocokkan admin.</p>
+        </div>
+    </div>
+</div>
 
 <div class="admin-grid" style="grid-template-columns: repeat(4, 1fr);">
     <div class="metric">
@@ -686,6 +695,15 @@ if ($halaman === 'laporan') {
     tampil_admin_atas($judul, 'laporan');
     ?>
 
+<div class="page-head">
+    <div class="page-head__inner">
+        <div>
+            <h1>Laporan donasi</h1>
+            <p class="muted">Rekap per program dan per bulan, hanya dari donasi terverifikasi.</p>
+        </div>
+    </div>
+</div>
+
 <div class="report-summary">
     <div class="stat">
         <div class="stat__value"><?= e(rupiah($total['total'])) ?></div>
@@ -812,7 +830,7 @@ if ($halaman === 'pesan') {
 <div class="page-head">
     <div class="page-head__inner">
         <div>
-            <h2>Pesan dari pengunjung</h2>
+            <h1>Pesan dari pengunjung</h1>
             <p class="muted"><?= e(count($pesan)) ?> pesan masuk.</p>
         </div>
     </div>
@@ -914,6 +932,16 @@ $judul = 'Dashboard';
 tampil_admin_atas($judul, 'dashboard');
 ?>
 
+<div class="page-head">
+    <div class="page-head__inner">
+        <div>
+            <h1>Ringkasan</h1>
+            <p class="muted">Angka dihitung dari donasi berstatus terverifikasi, kecuali yang diberi label lain.</p>
+        </div>
+        <a class="btn btn--primary btn--sm" href="admin.php?halaman=donasi&amp;status=paid">Verifikasi donasi</a>
+    </div>
+</div>
+
 <div class="admin-grid">
     <div class="metric metric--brand">
         <div class="metric__label">Dana terverifikasi</div>
@@ -944,26 +972,6 @@ tampil_admin_atas($judul, 'dashboard');
 
 <div class="admin-columns">
     <div>
-        <div class="card" style="margin-bottom: 20px;">
-            <div class="card__head">
-                <h2>Tren donasi 6 bulan</h2>
-                <span class="small muted">Hanya donasi terverifikasi</span>
-            </div>
-            <div class="card__body">
-                <div class="chart">
-                    <?php foreach ($grafik as $g): ?>
-                        <?php $tinggi = max(4, round(($g['total'] / $nilai_maks) * 100, 1)); ?>
-                        <div class="chart__col">
-                            <div class="chart__bar" style="height: <?= e($tinggi) ?>%">
-                                <span><?= e(rupiah($g['total'])) ?></span>
-                            </div>
-                            <div class="chart__label"><?= e($g['label']) ?></div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </div>
-
         <div class="card">
             <div class="card__head">
                 <h2>Perlu diverifikasi</h2>
@@ -1004,6 +1012,25 @@ tampil_admin_atas($judul, 'dashboard');
                     </table>
                 </div>
             <?php endif; ?>
+        </div>
+        <div class="card" style="margin-top: 20px;">
+            <div class="card__head">
+                <h2>Tren donasi 6 bulan</h2>
+                <span class="small muted">Hanya donasi terverifikasi</span>
+            </div>
+            <div class="card__body">
+                <div class="chart">
+                    <?php foreach ($grafik as $g): ?>
+                        <?php $tinggi = max(4, round(($g['total'] / $nilai_maks) * 100, 1)); ?>
+                        <div class="chart__col">
+                            <div class="chart__bar" style="height: <?= e($tinggi) ?>%">
+                                <span><?= e(rupiah($g['total'])) ?></span>
+                            </div>
+                            <div class="chart__label"><?= e($g['label']) ?></div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
         </div>
     </div>
 

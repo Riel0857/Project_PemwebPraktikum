@@ -157,7 +157,6 @@ tampil_atas($judul, 'program');
         <div class="gw-amount">
             <span class="gw-label">Total tagihan</span>
             <strong><?= e(rupiah($donasi['amount'])) ?></strong>
-            <span class="gw-timer" id="gw-timer" data-seconds="900">15:00</span>
         </div>
 
         <div class="gw-rows">
@@ -199,7 +198,7 @@ tampil_atas($judul, 'program');
             <button class="gw-button" type="submit" name="bayar" value="1">Bayar Sekarang (Simulasi)</button>
         </form>
 
-        <a class="gw-cancel" href="program.php?id=<?= e($donasi['program_id']) ?>">Batalkan dan kembali ke program</a>
+        <a class="gw-cancel" href="program.php?id=<?= e($donasi['program_id']) ?>">Kembali ke program · donasi tetap tersimpan</a>
     </div>
 
     <p class="gw-note">
