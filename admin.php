@@ -594,7 +594,7 @@ if ($halaman === 'donasi') {
 
 <div class="card">
     <?php if ($donasi === []): ?>
-        <div class="card__body"><p class="muted" style="margin: 0;">Tidak ada donasi yang sesuai filter.</p></div>
+        <div class="card__body"><p class="muted" style="margin: 0;">Tidak ada donasi yang cocok dengan filter ini. Kosongkan kata kunci atau pilih status lain.</p></div>
     <?php else: ?>
         <div class="table-wrap">
             <table class="table">
@@ -838,7 +838,7 @@ if ($halaman === 'pesan') {
 
 <?php if ($pesan === []): ?>
     <div class="empty">
-        <h3>Belum ada pesan</h3>
+        <h2>Belum ada pesan</h2>
         <p>Pesan yang dikirim lewat formulir kontak akan muncul di sini.</p>
     </div>
 <?php else: ?>
