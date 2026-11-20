@@ -72,7 +72,7 @@ function tampil_bawah()
             </p>
         </div>
         <div>
-            <h3>Program</h3>
+            <h2>Program</h2>
             <ul class="footer-links">
                 <li><a href="/program.php?kategori=pendidikan">Pendidikan</a></li>
                 <li><a href="/program.php?kategori=kesehatan">Kesehatan</a></li>
@@ -81,7 +81,7 @@ function tampil_bawah()
             </ul>
         </div>
         <div>
-            <h3>Informasi</h3>
+            <h2>Informasi</h2>
             <ul class="footer-links">
                 <li><a href="/index.php#tentang">Tentang Kami</a></li>
                 <li><a href="/cek.php">Cek Status Donasi</a></li>
@@ -90,7 +90,7 @@ function tampil_bawah()
             </ul>
         </div>
         <div>
-            <h3>Kontak</h3>
+            <h2>Kontak</h2>
             <ul class="footer-links footer-links--plain">
                 <li>Jl. Cendana No. 12, Bandung</li>
                 <li>halo@pedulikasih.test</li>

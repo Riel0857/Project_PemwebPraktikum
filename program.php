@@ -247,7 +247,7 @@ tampil_atas($judul, 'program');
                         </a>
 
                         <div class="program-card__body">
-                            <h3><a href="program.php?id=<?= e($p['id']) ?>"><?= e($p['title']) ?></a></h3>
+                            <h2><a href="program.php?id=<?= e($p['id']) ?>"><?= e($p['title']) ?></a></h2>
                             <p class="program-card__summary"><?= e($p['summary']) ?></p>
 
                             <div class="progress">

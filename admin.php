@@ -187,14 +187,9 @@ if ($halaman === 'program_form') {
     tampil_admin_atas($judul, 'program');
     ?>
 
-<div class="page-head">
-    <div class="page-head__inner">
-        <div>
-            <h1><?= $id > 0 ? 'Edit program' : 'Program baru' ?></h1>
-            <p class="muted">Isi data program dengan lengkap agar donatur memahami tujuannya.</p>
-        </div>
-        <a class="btn btn--outline btn--sm" href="admin.php?halaman=program">Kembali</a>
-    </div>
+<div class="toolbar">
+    <p class="muted">Isi data program dengan lengkap agar donatur memahami tujuannya.</p>
+    <a class="btn btn--outline btn--sm" href="admin.php?halaman=program">Kembali</a>
 </div>
 
 <form class="form-card admin-form" method="post" action="admin.php?halaman=program_form">
@@ -303,14 +298,9 @@ if ($halaman === 'program') {
     tampil_admin_atas($judul, 'program');
     ?>
 
-<div class="page-head">
-    <div class="page-head__inner">
-        <div>
-            <h1>Daftar program</h1>
-            <p class="muted"><?= e(count($program)) ?> program terdaftar.</p>
-        </div>
-        <a class="btn btn--primary btn--sm" href="admin.php?halaman=program_form">+ Tambah Program</a>
-    </div>
+<div class="toolbar">
+    <p class="muted"><?= e(count($program)) ?> program terdaftar.</p>
+    <a class="btn btn--primary btn--sm" href="admin.php?halaman=program_form">Tambah program</a>
 </div>
 
 <form class="search" method="get" action="admin.php" style="margin-bottom: 16px; max-width: 360px;">
@@ -398,18 +388,13 @@ if ($halaman === 'kategori') {
     tampil_admin_atas($judul, 'kategori');
     ?>
 
-<div class="page-head">
-    <div class="page-head__inner">
-        <div>
-            <h1>Kategori program</h1>
-            <p class="muted"><?= e(count($daftar)) ?> kategori terdaftar. Kategori dipakai saat menambah program.</p>
-        </div>
-    </div>
+<div class="toolbar">
+    <p class="muted"><?= e(count($daftar)) ?> kategori terdaftar. Kategori dipakai saat menambah program.</p>
 </div>
 
 <div class="admin-columns">
     <div class="card">
-        <div class="card__head"><h3>Daftar kategori</h3></div>
+        <div class="card__head"><h2>Tambah kategori</h2></div>
         <?php if ($daftar === []): ?>
             <div class="card__body"><p class="muted" style="margin: 0;">Belum ada kategori. Tambahkan lewat form di samping.</p></div>
         <?php else: ?>
@@ -542,13 +527,8 @@ if ($halaman === 'donasi') {
     tampil_admin_atas($judul, 'donasi');
     ?>
 
-<div class="page-head">
-    <div class="page-head__inner">
-        <div>
-            <h1>Verifikasi donasi</h1>
-            <p class="muted">Transaksi terbaru di atas. Donasi berstatus sudah dibayar perlu dicocokkan admin.</p>
-        </div>
-    </div>
+<div class="toolbar">
+    <p class="muted">Donasi berstatus sudah dibayar perlu dicocokkan admin sebelum dihitung.</p>
 </div>
 
 <div class="admin-grid" style="grid-template-columns: repeat(4, 1fr);">
@@ -695,13 +675,8 @@ if ($halaman === 'laporan') {
     tampil_admin_atas($judul, 'laporan');
     ?>
 
-<div class="page-head">
-    <div class="page-head__inner">
-        <div>
-            <h1>Laporan donasi</h1>
-            <p class="muted">Rekap per program dan per bulan, hanya dari donasi terverifikasi.</p>
-        </div>
-    </div>
+<div class="toolbar">
+    <p class="muted">Rekap per program dan per bulan, hanya dari donasi terverifikasi.</p>
 </div>
 
 <div class="report-summary">
@@ -827,13 +802,8 @@ if ($halaman === 'pesan') {
     tampil_admin_atas($judul, 'pesan');
     ?>
 
-<div class="page-head">
-    <div class="page-head__inner">
-        <div>
-            <h1>Pesan dari pengunjung</h1>
-            <p class="muted"><?= e(count($pesan)) ?> pesan masuk.</p>
-        </div>
-    </div>
+<div class="toolbar">
+    <p class="muted"><?= e(count($pesan)) ?> pesan masuk.</p>
 </div>
 
 <?php if ($pesan === []): ?>
@@ -932,14 +902,9 @@ $judul = 'Dashboard';
 tampil_admin_atas($judul, 'dashboard');
 ?>
 
-<div class="page-head">
-    <div class="page-head__inner">
-        <div>
-            <h1>Ringkasan</h1>
-            <p class="muted">Angka dihitung dari donasi berstatus terverifikasi, kecuali yang diberi label lain.</p>
-        </div>
-        <a class="btn btn--primary btn--sm" href="admin.php?halaman=donasi&amp;status=paid">Verifikasi donasi</a>
-    </div>
+<div class="toolbar">
+    <p class="muted">Angka dihitung dari donasi berstatus terverifikasi, kecuali yang diberi label lain.</p>
+    <a class="btn btn--primary btn--sm" href="admin.php?halaman=donasi&amp;status=paid">Verifikasi donasi</a>
 </div>
 
 <div class="admin-grid">

@@ -248,7 +248,7 @@ $progres = persen($program['collected_amount'], $program['target_amount']);
 
             <aside class="summary-card">
                 <div class="summary-card__thumb" aria-hidden="true"><?= e(strtoupper(substr($program['title'], 0, 1))) ?></div>
-                <h3 style="font-size: 1rem;"><?= e($program['title']) ?></h3>
+                <h2 style="font-size: 1rem; margin: 0 0 4px;"><?= e($program['title']) ?></h2>
                 <p class="small muted" style="margin-bottom: 16px;"><?= e($program['kategori']) ?></p>
 
                 <div class="summary-row">

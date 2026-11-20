@@ -21,7 +21,7 @@ if (!$donasi) {
     $judul = 'Kode donasi tidak ditemukan';
     tampil_atas($judul, 'program');
     echo '<section class="section"><div class="container"><div class="empty">'
-        . '<h2>Kode donasi tidak ditemukan</h2>'
+        . '<h1>Kode donasi tidak ditemukan</h1>'
         . '<p>Periksa kembali kode donasi Anda, misalnya DON-20261110-A1B2.</p>'
         . '<a class="btn btn--primary" href="program.php">Kembali ke daftar program</a>'
         . '</div></div></section>';
@@ -78,7 +78,7 @@ if ($status !== 'pending') {
             <p class="small muted"><?= e($keterangan[$status] ?? '') ?></p>
 
             <div class="pay-box">
-                <h4>Rincian pembayaran</h4>
+                <h2 style="font-size: 1rem; margin-bottom: 12px;">Rincian pembayaran</h2>
                 <div class="pay-row">
                     <span>Metode</span>
                     <strong><?= e(label_metode($donasi['method'])) ?></strong>

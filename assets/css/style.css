@@ -522,7 +522,7 @@ legend { padding: 0; }
     max-width: 34ch;
 }
 
-.site-footer h3 {
+.site-footer h2 {
     color: #fff;
     font-size: .84rem;
     font-weight: 700;
@@ -846,13 +846,16 @@ legend { padding: 0; }
     flex: 1;
 }
 
+.program-card__body h2,
 .program-card__body h3 {
     margin: 0;
     font-size: 1.05rem;
     line-height: 1.35;
 }
 
+.program-card__body h2 a,
 .program-card__body h3 a { color: var(--ink); }
+.program-card__body h2 a:hover,
 .program-card__body h3 a:hover { color: var(--brand-500); }
 
 .program-card__summary {
@@ -987,6 +990,17 @@ legend { padding: 0; }
     flex-wrap: wrap;
 }
 .page-head h1 { font-size: clamp(1.5rem, 2.6vw, 2rem); }
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.toolbar p { margin: 0; }
 
 .breadcrumb {
     font-size: .8rem;
@@ -1445,6 +1459,7 @@ legend { padding: 0; }
     border: 1px solid var(--line);
 }
 
+.pay-box h2,
 .pay-box h4 { margin-bottom: 12px; }
 
 .pay-row {
