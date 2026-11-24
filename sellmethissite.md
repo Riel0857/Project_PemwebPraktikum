@@ -24,5 +24,5 @@ Alasan kenapa web ini layak di-*publish* sekaligus nilai jual utamanya dibanding
 
 ---
 
-**Poin Pitching Singkat (Kalau buat presentasi / README):**
+**Poin Pitching Singkat:**
 > *"PeduliKasih adalah platform penggalangan dana mandiri yang menggabungkan kecepatan PHP Native, ketangguhan database relasional PostgreSQL, dan keamanan berlapis (PDO, CSRF, Bcrypt). Dirancang dengan alur donasi tanpa hambatan akun serta pelacakan transaksi transparan, sistem ini sudah dikemas penuh dengan Docker dan Dockge sehingga siap di-publish secara mandiri tanpa potongan biaya platform pihak ketiga."*
